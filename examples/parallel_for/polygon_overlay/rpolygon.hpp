@@ -41,6 +41,8 @@ public:
     RPolygon() {
         m_XMin = m_YMin = m_XMax = m_YMax = 0;
         m_r = m_g = m_b = 0;
+        test_ptr = new int;
+        *test_ptr = 0;
     }
     RPolygon(int xMin, int yMin, int xMax, int yMax, int r = -1, int g = -1, int b = -1)
             : m_XMin(xMin),
@@ -54,6 +56,11 @@ public:
             if (gDoDraw)
                 drawPoly();
         }
+        test_ptr = new int;
+        *test_ptr = 0;
+    }
+    ~RPolygon() {
+        delete test_ptr;
     }
 
     void set_nodraw(int xMin, int yMin, int xMax, int yMax) {
@@ -124,7 +131,7 @@ public:
     }
     void print(int i) {
         std::cout << "RPolygon " << i << " (" << m_XMin << ", " << m_YMin << ")-(" << m_XMax << ", "
-                  << m_YMax << ") "
+                  << m_YMax + (*test_ptr) /*0*/ << ") "
                   << "\n";
         fflush(stdout);
     }
@@ -137,6 +144,7 @@ private:
     colorcomp_t m_r;
     colorcomp_t m_g;
     colorcomp_t m_b;
+    int *test_ptr;
 };
 
 #if _MAIN_C_
